@@ -1,0 +1,212 @@
+/* Mobile base styles 
+body { font-size: 14px; }
+
+ Desktop+ 
+@media (min-width: 1024px) {
+  body { font-size: 18px; }
+} 
+
+
+*/
+/* Without an html background, the browser would spread body's grey across the whole window */
+html {
+    background-color: white;
+}
+
+/* The whole page sits on one centered light grey rectangle */
+body {
+    background-color: #e8e8e8;
+    max-width: 900px;
+    margin: 16px auto;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+/* Image and text sit in the two middle columns; the equal empty columns on
+   either side center them together as one group */
+header {
+    display: grid;
+    grid-template-columns: 1fr auto auto 1fr;
+    align-items: center;
+    column-gap: 16px;
+    row-gap: 8px;
+    padding: 16px;
+
+    /* Image spans all three rows so it sits beside h1, h2 and the LinkedIn link together */
+    img {
+        width: 200px;
+        height: auto;
+        display: block;
+        grid-column: 2;
+        grid-row: 1 / 4;
+        border: 4px solid #6154da;
+        border-radius: 12px;
+    }
+
+    h1 {
+        color: grey;
+        font-size: 3em;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        grid-column: 3;
+        grid-row: 1;
+        margin: 0;
+    }
+
+    /* Starts underneath the h1, indented slightly to the right */
+    h2 {
+        color: white;
+        background-color: #6154da;
+        border: 3px solid darkblue;
+        padding: 8px 16px;
+        justify-self: start;
+        grid-column: 3;
+        grid-row: 2;
+        margin: 0 0 0 0;
+    }
+
+    #LinkedIn {
+        grid-row: 3;
+        grid-column: 3;
+    }
+}
+
+main {
+    display: grid;
+    /* Each column grows up to 300px, then stops; the pair stays centered */
+    grid-template-columns: repeat(2, minmax(0, 300px));
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+}
+
+/* Each card sets --ratio (image height / width) inline, so the car's height is known ahead of time */
+.grid-item {
+    container-type: inline-size;
+    --img-width: 65cqw;
+    /* How far above the bottom of the card the cars sit; more lift = more text below and beside them */
+    --img-lift: 140px;
+
+    /* Every car takes the same share of its card's width, leaving room for text beside it */
+    img {
+        width: var(--img-width);
+        height: auto;
+    }
+}
+
+/* Floats can't sit at the bottom on their own, so an invisible spacer float
+   fills the card's height minus the image, pushing the image to the bottom right */
+.grid-item::before {
+    content: "";
+    float: right;
+    width: 0;
+    height: calc(100% - var(--img-width) * var(--ratio) - var(--img-lift));
+}
+
+
+
+h3 {
+    color: darkblue;
+    font-size: 1.5em;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+}
+
+/* Link states in LVFHA order (link, visited, focus, hover, active)*/
+a:link {
+    color: #6154da;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:visited {
+    color: darkblue;
+}
+
+a:focus {
+    outline: 3px solid darkblue;
+    outline-offset: 2px;
+}
+
+a:hover {
+    color: white;
+    background-color: #6154da;
+    text-decoration: underline;
+}
+
+a:active {
+    color: white;
+    background-color: darkblue;
+}
+
+/* Wrap text around the opaque part of the image, ignoring transparent pixels.
+   Each img sets its own --shape, e.g. style="--shape: url(src/car1.png)" */
+.wrap-shape {
+    float: right;
+    clear: right;
+    shape-outside: var(--shape);
+    shape-image-threshold: 0.5;
+    shape-margin: 8px;
+}
+
+/* Phones and narrow windows: everything stacks into one column */
+@media (max-width: 760px) {
+
+    /* Grey rectangle fills the screen instead of floating with white around it */
+    body {
+        margin: 0;
+        padding: 8px;
+        border-radius: 0;
+    }
+
+    /* Image on top, then the title, subtitle and link, all centered */
+    header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+
+        img {
+            grid-column: 1;
+            grid-row: 1;
+            width: 150px;
+        }
+
+        h1 {
+            grid-column: 1;
+            grid-row: 2;
+            font-size: 2.2em;
+        }
+
+        h2 {
+            grid-column: 1;
+            grid-row: 3;
+            justify-self: center;
+            font-size: 1.2em;
+        }
+
+        #LinkedIn {
+            grid-column: 1;
+            grid-row: 4;
+        }
+    }
+
+    /* One card per row */
+    main {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 8px;
+    }
+
+    /* Too narrow to wrap text beside the images, so each image goes full width above its text */
+    .grid-item {
+        --img-width: 100%;
+    }
+
+    .grid-item::before {
+        display: none;
+    }
+
+    .wrap-shape {
+        float: none;
+        display: block;
+    }
+}
