@@ -1,0 +1,120 @@
+/* Shared by all five project pages; colors, fonts and link states match index.css */
+
+/* Without an html background, the browser would spread body's grey across the whole window */
+html {
+    background-color: white;
+}
+
+/* The whole page sits on one centered light grey rectangle */
+body {
+    background-color: #e8e8e8;
+    max-width: 900px;
+    margin: 16px auto;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+/* Same width as the two card columns on the home page, stacked and centered */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 616px;
+    margin: 0 auto;
+    padding: 16px;
+
+    h1 {
+        color: darkblue;
+        font-size: 2em;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Keeps its 16:9 shape and stays visible even before a video is added */
+    video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+        box-sizing: border-box;
+        border: 4px solid #6154da;
+        border-radius: 12px;
+    }
+
+    /* Otherwise the flex column stretches links, and their hover color, across the full width */
+    a {
+        align-self: flex-start;
+    }
+}
+
+/* Size goes on every link, not a:link, so links don't shrink back once visited */
+a {
+    font-size: 1.15em;
+}
+
+/* Link states in LVFHA order (link, visited, focus, hover, active)*/
+a:link {
+    color: #6154da;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:visited {
+    color: darkblue;
+}
+
+a:focus {
+    outline: 3px solid darkblue;
+    outline-offset: 2px;
+}
+
+a:hover {
+    color: white;
+    background-color: #6154da;
+    text-decoration: underline;
+}
+
+a:active {
+    color: white;
+    background-color: darkblue;
+}
+
+/* Back arrow in the top left corner, on its own row so it can't cover the title.
+   Comes after the link states because the main page always counts as visited, which would underline it */
+a.back {
+    display: inline-block;
+    font-size: 2em;
+    line-height: 1;
+    padding: 0 8px 4px;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+/* Phones and narrow windows */
+@media (max-width: 760px) {
+
+    /* Grey rectangle fills the screen instead of floating with white around it */
+    body {
+        margin: 0;
+        padding: 8px;
+        border-radius: 0;
+    }
+
+    main {
+        padding: 8px;
+
+        h1 {
+            font-size: 1.5em;
+        }
+    }
+}
