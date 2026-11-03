@@ -91,6 +91,15 @@ main {
     img {
         width: var(--img-width);
         height: auto;
+        border-radius: 12px;
+        display: block;
+    }
+
+    /* The image link wraps a floated image, which leaves the link itself an empty box,
+       so the focus outline goes on the image instead */
+    a:focus img {
+        outline: 3px solid darkblue;
+        outline-offset: 2px;
     }
 }
 
@@ -145,7 +154,8 @@ a:active {
 }
 
 /* Wrap text around the opaque part of the image, ignoring transparent pixels.
-   Each img sets its own --shape, e.g. style="--shape: url(src/car1.png)" */
+   Each img sets its own --shape, e.g. style="--shape: url(src/car1.png)".
+   It must stay on the img, not a link around it, or Chrome misplaces the shape */
 .wrap-shape {
     float: right;
     clear: right;

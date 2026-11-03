@@ -39,6 +39,7 @@ main {
         width: 100%;
         height: auto;
         display: block;
+        border-radius: 12px;
     }
 
     /* Keeps its 16:9 shape and stays visible even before a video is added */
